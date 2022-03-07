@@ -1,21 +1,24 @@
-'use strict';
-const express = require('express');
+"use strict";
+const express = require("express");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-const {DBconction} = require('./DBconction')
+//////// Routes //////
 
-DBconction()
-
-app.get('/', (req,res)=>{
-
-    res.send("ddddddddddd")
-});
+const AuthRouter = require("./routes/auth.route");
+const adminRouter = require("./routes/admin.route")
+const customerRouter = require('./routes/customer.route')
 
 
+/////// Data base conncetion //////
+const { DBconction } = require("./DBconction");
+DBconction();
 
+app.use('/',AuthRouter);
+app.use(`/admin`, adminRouter);
+app.use('/customer', customerRouter);
 
 const start = (port) => {
   app.listen(port, () => console.log(`server starts on ${port}`));
