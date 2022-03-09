@@ -8,7 +8,9 @@ const complaintSchema = mongoose.Schema({
     date: { type: Date, default: Date.now },
     subject :{type: String},
     complaint:{type:String},
-    Status:{type:String,default:"pending resolution"}
+    Status:{type:String,default:"pending resolution"},
+    message :{type: String},
+    isUrgent:{type: Boolean}
 
 });
 

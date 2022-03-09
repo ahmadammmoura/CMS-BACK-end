@@ -1,3 +1,3 @@
 'use strict';
 const server = require('./src/server');
-server.start(3000);
+server.start(8080);
