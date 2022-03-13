@@ -24,6 +24,19 @@ userSchema.statics.generateToken = function (user) {
   return jwt.sign(userData, SECRET);
 };
 
+userSchema.statics.authenticateToken = async function (token) {
+  try {
+    const payload = jwt.verify(token, SECRET);
+    const user = await this.findOne({ username: payload.username });
+    if (user) {
+      return user;
+    }
+    throw new Error('USER NOT FOUND');
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
 
 const User = mongoose.model("user", userSchema);
 

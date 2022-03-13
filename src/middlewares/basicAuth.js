@@ -12,6 +12,7 @@ module.exports = async (req, res,next) => {
 
 
   
+  
 
   try {
     const user = await User.findOne({ username: username });
@@ -23,7 +24,7 @@ module.exports = async (req, res,next) => {
 
     
     if (valid) {
-      req.token = User.generateToken(valid);
+      req.token = User.generateToken(user);
       
       
       next();

@@ -23,7 +23,10 @@ const signUp = async (req, res) => {
 };
 
 const signIn = (req, res) => {
+
+  
   res.status(200).json(req.token);
+
 };
 
 async function validUser(body,res) {

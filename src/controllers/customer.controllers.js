@@ -2,7 +2,7 @@ const User = require("../Models/user.model");
 const { v4: uuidv4 } = require("uuid");
 
 const getMyComplaints = (req, res, next) => {
-  const { username } = req.body;
+  const { username } = req.user;
 
   User.find({ username: username }, function (err, user) {
     if (err) return console.error(err);
@@ -26,14 +26,18 @@ const getOneComplaint = (req, res, next) => {
 
 const creatComplaint = async (req, res, next) => {
   try {
-    const { username, subject, complaint } = req.body;
+    const { subject,isUrgent,message } = req.body;
+
+    const {username} = req.user
+
 
     User.find({ username: username }, function (err, user) {
       if (err) return console.error(err);
       const newcomplaint = {
         id: uuidv4(),
         subject,
-        complaint,
+        isUrgent,
+        message
       };
 
 
