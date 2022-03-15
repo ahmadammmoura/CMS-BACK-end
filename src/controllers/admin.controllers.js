@@ -5,8 +5,8 @@ const getAllcostumer = (req, res, next) => {
   try {
     User.find({ role: "customer" }, function (err, user) {
       if (err) return console.error(err);
-
-      res.send(user[0]);
+      console.log(user)
+      res.send(user);
     });
   } catch (e) {
     res.status(403).send(e);
