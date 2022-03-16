@@ -11,6 +11,6 @@ router.get('/costumers',bearerAuth, getAllcostumer); // to get all the Complaint
 
 router.get('/compaint/:id',getOneComplaint); // to get one of  the Complaints 
 
-router.put('/compaint/:id',editComplaint); // to edit the Complaint
+router.put('/complaint',bearerAuth,editComplaint); // to edit the Complaint
 
 module.exports = router;

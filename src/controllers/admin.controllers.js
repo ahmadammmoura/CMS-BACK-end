@@ -1,12 +1,11 @@
 const User = require("../Models/user.model");
+const {Complaint} = require("../models/complaint.model")
 
 const getAllcostumer = (req, res, next) => {
-  console.log("Sss");
   try {
-    User.find({ role: "customer" }, function (err, user) {
+    Complaint.find({}, function (err, complaint) {
       if (err) return console.error(err);
-      console.log(user)
-      res.send(user);
+      res.send(complaint);
     });
   } catch (e) {
     res.status(403).send(e);
@@ -15,23 +14,29 @@ const getAllcostumer = (req, res, next) => {
 
 const getOneComplaint = (req, res, next) => {};
 
-const editComplaint = async (req, res, next) => {
-  const { index, Status, username } = req.body;
+const editComplaint =  (req, res, next) => {
+  const { id, Status,username } = req.body;
 
-  await User.find({ username: username }, (err, user) => {
+  console.log(id,Status,username)
+  User.findOne({ username:username },(err,user)=>{
+    console.log(user)
+    const index = user.complaint.findIndex(element => element._id == id)
+    user.complaint[index].Status = Status
+    user.save()
+  })
+
+   Complaint.findOne({ _id: id }, (err, complaint) => {
     if (err) console.log(err);
+  
 
-    user[0].complaint[index].Stats = Status;
-
-    user[0].save();
-    res.send(user[0]);
+    complaint.Status = Status;
+    complaint.save();
+    res.send(complaint);
   });
 };
 
 const makeAdmin = async (req, res, next) => {
-
   const { role, username } = req.body;
-
 
   await User.find({ username: username }, (err, user) => {
     if (err) console.log(err);
